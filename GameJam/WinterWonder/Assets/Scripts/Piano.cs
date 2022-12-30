@@ -11,6 +11,16 @@ public class Piano : MonoBehaviour
     public float radius;
     public Transform checkPos;
     bool isPlayerNear;
+
+    [Header("Note List")]
+    int currentNoteCompareNumber = 0;
+    public List<note> currentNoteList = new List<note>();
+    public List<note> objectiveNote1 = new List<note>();
+    public List<note> objectiveNote2 = new List<note>();
+    public List<note> objectiveNote3 = new List<note>();
+  
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,4 +52,34 @@ public class Piano : MonoBehaviour
     {
         Gizmos.DrawWireSphere(checkPos.position, radius);
     }
+
+   
+    public void FillNote(note _note)
+    {
+        
+
+
+        
+       if(_note == objectiveNote1[currentNoteCompareNumber])
+       {
+         currentNoteList.Add(_note);
+         currentNoteCompareNumber++;
+
+            if(currentNoteCompareNumber >= 4)
+            {
+                pianoCanvas.SetActive(false);
+                currentNoteList.Clear();
+                currentNoteCompareNumber = 0;
+                AudioManagerCS.instance.Play("objectiveCompleted");
+            }
+       }
+       else
+       {
+         currentNoteList.Clear();
+         currentNoteCompareNumber = 0;
+       }
+        
+    }
+
+
 }
