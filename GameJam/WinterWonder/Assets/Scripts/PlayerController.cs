@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
     bool isFacingRight = true;
+    public bool flipAtStart = false;
+   
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -21,15 +23,25 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (flipAtStart)
+        {
+            Flip();
+        }
         
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.instance.canMove)
+        {
+            anim.SetFloat("speed", 0);
+            return;
+        }
+
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-
+        anim.SetFloat("speed", Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
 
     }
 
@@ -41,8 +53,9 @@ public class PlayerController : MonoBehaviour
 
     void Movement()
     {
+       
         rb.velocity = new Vector2(horizontalInput, verticalInput).normalized * speed * Time.deltaTime;
-        anim.SetFloat("speed", Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
+       
         if (isFacingRight && horizontalInput < 0)
         {
             Flip();

@@ -58,28 +58,37 @@ public class Piano : MonoBehaviour
     {
         
 
-
-        
-       if(_note == objectiveNote1[currentNoteCompareNumber])
-       {
-         currentNoteList.Add(_note);
-         currentNoteCompareNumber++;
-
-            if(currentNoteCompareNumber >= 4)
+        if(ObjectiveManager.instance.objectiveNumber == 1)
+        {
+            if (_note == objectiveNote1[currentNoteCompareNumber])
             {
-                pianoCanvas.SetActive(false);
+                currentNoteList.Add(_note);
+                currentNoteCompareNumber++;
+
+                if (currentNoteCompareNumber >= 4)
+                {
+                    pianoCanvas.SetActive(false);
+                    currentNoteList.Clear();
+                    currentNoteCompareNumber = 0;
+                    AudioManagerCS.instance.Play("objectiveCompleted");
+                    ObjectiveManager.instance.ObjectiveCompleted();
+                    Invoke("ThemeSong", 1f);
+                }
+            }
+            else
+            {
                 currentNoteList.Clear();
                 currentNoteCompareNumber = 0;
-                AudioManagerCS.instance.Play("objectiveCompleted");
             }
-       }
-       else
-       {
-         currentNoteList.Clear();
-         currentNoteCompareNumber = 0;
-       }
+        }
+        
+      
         
     }
 
+    void ThemeSong()
+    {
+        AudioManagerCS.instance.Play("theme");
+    }
 
 }

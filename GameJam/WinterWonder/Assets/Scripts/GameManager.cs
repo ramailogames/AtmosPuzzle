@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [Header("Gameplays")]
     public GameObject pianoCanvas;
     public GameObject questInfoCanvas;
+    public bool canMove = true;
 
     [Header("Quest-Info")]
     public TextMeshProUGUI questInfoText;
@@ -49,6 +50,11 @@ public class GameManager : MonoBehaviour
                 //AudioManagerCS.instance.Play("interact");
                 questInfoCanvas.SetActive(false);
             }
+
+            if (songBook.activeInHierarchy)
+            {
+                SongBook();
+            }
             
         }
 
@@ -69,7 +75,7 @@ public class GameManager : MonoBehaviour
     //objective 1 is for song1, ... , ...
     public void SongBook()
     {
-        if(ObjectiveManager.instance.objectiveNumber == 1)
+        if(ObjectiveManager.instance.objectiveNumber >= 1)
         {
             song1.SetActive(true);
         }
