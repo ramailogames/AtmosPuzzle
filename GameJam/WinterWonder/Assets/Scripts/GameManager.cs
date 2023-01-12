@@ -55,6 +55,8 @@ public class GameManager : MonoBehaviour
             {
                 SongBook();
             }
+
+            canMove = true;
             
         }
 
@@ -80,9 +82,10 @@ public class GameManager : MonoBehaviour
             song1.SetActive(true);
         }
 
-        if (ObjectiveManager.instance.objectiveNumber == 3) 
+        if (ObjectiveManager.instance.objectiveNumber >= 3) 
         {
             song1.SetActive(true);
+            song2.SetActive(true);
         }
 
         if (ObjectiveManager.instance.objectiveNumber == 4)

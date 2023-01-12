@@ -12,4 +12,10 @@ public class note : MonoBehaviour
         FindObjectOfType<Piano>().FillNote(this);
 
     }
+
+    public void PlayNote(string name)
+    {
+        AudioManagerCS.instance.Play(name);
+    }
+
 }

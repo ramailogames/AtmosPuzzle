@@ -54,3 +54,6 @@ TagManager:
   - name: Tree
     uniqueID: 1653396735
     locked: 0
+  - name: Vfx
+    uniqueID: 394459461
+    locked: 0

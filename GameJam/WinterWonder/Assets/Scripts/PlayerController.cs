@@ -5,8 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Components")]
+    public GameObject gameCompleteVfx;
     Rigidbody2D rb;
     Animator anim;
+
 
     [Header("Movements")]
     public float speed;
@@ -36,6 +38,8 @@ public class PlayerController : MonoBehaviour
         if (!GameManager.instance.canMove)
         {
             anim.SetFloat("speed", 0);
+            horizontalInput = 0;
+            verticalInput = 0;
             return;
         }
 
@@ -77,6 +81,11 @@ public class PlayerController : MonoBehaviour
     {
         int rand = Random.Range(1, 3);
         AudioManagerCS.instance.PlayOneShot("footstep" + rand);
+    }
+
+    public void DisableMe()
+    {
+        gameObject.SetActive(false);
     }
 
     

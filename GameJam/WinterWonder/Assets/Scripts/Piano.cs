@@ -40,6 +40,7 @@ public class Piano : MonoBehaviour
             {
                 AudioManagerCS.instance.Play("interact");
                 pianoCanvas.SetActive(true);
+                GameManager.instance.canMove = false;
             }
         }
         else
@@ -81,9 +82,52 @@ public class Piano : MonoBehaviour
                 currentNoteCompareNumber = 0;
             }
         }
-        
-      
-        
+
+        if (ObjectiveManager.instance.objectiveNumber == 3)
+        {
+            if (_note == objectiveNote2[currentNoteCompareNumber])
+            {
+                currentNoteList.Add(_note);
+                currentNoteCompareNumber++;
+
+                if (currentNoteCompareNumber >= 4)
+                {
+                    pianoCanvas.SetActive(false);
+                    currentNoteList.Clear();
+                    currentNoteCompareNumber = 0;
+                    AudioManagerCS.instance.Play("objectiveCompleted");
+                    ObjectiveManager.instance.ObjectiveCompleted();
+
+                    //game completed
+                    GameManager.instance.canMove = false;
+                    FindObjectOfType<PlayerController>().gameCompleteVfx.SetActive(true);
+                    Invoke("Gameover", 4f);
+                   
+                }
+            }
+            else
+            {
+                currentNoteList.Clear();
+                currentNoteCompareNumber = 0;
+            }
+        }
+
+
+
+    }
+
+    public GameObject gameOverView;
+    void Gameover()
+    {
+        AudioManagerCS.instance.Play("itemget");
+        FindObjectOfType<PlayerController>().DisableMe();
+        Invoke("Gameover_", 2f);
+
+    }
+
+    void Gameover_()
+    {
+        gameOverView.SetActive(true);
     }
 
     void ThemeSong()

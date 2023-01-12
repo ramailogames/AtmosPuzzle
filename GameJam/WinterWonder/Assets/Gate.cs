@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Gate : MonoBehaviour
 {
-
+    public string goToLevel;
+   
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -19,6 +20,11 @@ public class Gate : MonoBehaviour
             {
                 GameManager.instance.QuestInfo("[ Luna.. Play the song, Check in songbook.. ]");
                 GameManager.instance.questInfoCanvas.SetActive(true);
+            }
+
+            if(ObjectiveManager.instance.objectiveNumber >= 2)
+            {
+                SceneLoader.instance.LoadScene(goToLevel);
             }
         }
     }

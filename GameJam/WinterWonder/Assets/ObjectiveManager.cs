@@ -13,6 +13,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         instance = this;
         objectiveNumber = PlayerPrefs.GetInt("objectiveNumber");
+        Debug.Log(objectiveNumber);
     }
 
     public void ObjectiveState()
